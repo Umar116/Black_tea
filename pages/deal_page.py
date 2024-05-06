@@ -1,11 +1,42 @@
-from datas.locators import DealsPageLocators
+from datas.locators import deal_list_l, open_customer_l, add_new_customer_l, create_button_l, first_name_l, last_name_l, email_l, \
+    phone_l, chat_field, send_message
 from pages.base_page import BasePage
 from pages.tools import Tools
 
 
 class DealPage(BasePage):
-    deal_locators = DealsPageLocators
+
+    def __init__(self, browser):
+        super().__init__(browser)
+        self.browser = browser
+        self.elements = Tools(browser)
 
     def open_customer_add_window(self):
-        elements = Tools(self.browser)
-        elements.click(*self.deal_locators.open_customer)
+        self.elements.click(open_customer_l)
+
+    def open_customer_create_window(self):
+        self.elements.click(add_new_customer_l)
+
+    def click_create_button(self):
+        self.elements.click(create_button_l)
+
+    def get_deal_list(self):
+        self.browser.find_elements(deal_list_l)
+
+    def input_full_customer_dates(self, name, last_name, phone, email):
+        self.elements.input(first_name_l, text=name)
+        self.elements.input(last_name_l, text=last_name)
+        self.elements.input(phone_l, text=phone)
+        self.elements.input(email_l, text=email)
+
+    def input_mandatory_customer_dates(self, first_name):
+        self.elements.input(first_name_l, text=first_name)
+
+    def get_deals_name(self):
+        return self.elements.get_items_list(deal_list_l)
+
+    def input_text_in_chat(self, text):
+        self.elements.input(chat_field, text=text)
+
+    def click_send_message_in_chat(self):
+        self.elements.click(send_message)
