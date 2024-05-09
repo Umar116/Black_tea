@@ -15,3 +15,10 @@ deal_list_l = (By.CLASS_NAME,
                "MuiTypography-root.MuiTypography-body2.MuiTypography-noWrap.css-fsltt8")
 chat_field = (By.NAME, "msg")
 send_message = (By.CSS_SELECTOR, 'button[aria-label="Send"]')
+first_name_field_error = (By.XPATH, '//p[text()=\'"firstName" is required\']')
+
+search_customer_field = (By.CSS_SELECTOR, 'input[placeholder="Enter phone number, email, or name"]')
+deal_notification = (By.CSS_SELECTOR, 'div[class="MuiAlert-message css-1xsto0d"]')
+
+customer_name_in_customer_list = (By.CSS_SELECTOR,
+                                  'p[class="MuiTypography-root MuiTypography-body1 css-x63jhb"]')
