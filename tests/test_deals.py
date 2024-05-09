@@ -1,7 +1,6 @@
 import time
 
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.select import Select
 
 from conftest import browser, authorization
 from datas.fake import first_name, last_name, phone, email
@@ -41,6 +40,32 @@ class TestLogin:
         deals = deal.get_deals_name()
         assert f_name in deals[0].text, "Deal Not found"
 
+    def test_deal_created_by_customer(self, browser, authorization):
+        deal = DealPage(browser)
+        name = deal.get_deals_name()[1].text
+
+        deal.open_customer_add_window()
+        deal.input_customer_date_in_search_field(name)
+        time.sleep(3)
+        customer = deal.get_customer_name_in_customer_list()
+        assert name == customer[0].text
+        customer[0].click()
+        deal.click_create_button()
+        time.sleep(3)
+
+        assert deal.get_deal_notification().text == "Chat is successfully created"
+        deals = deal.get_deals_name()
+        assert deals[0].text == name, "Deal Not found"
+
+    def test_error_when_mandatory_is_not_field(self, browser, authorization):
+        deal = DealPage(browser)
+
+        deal.open_customer_add_window()
+        deal.open_customer_create_window()
+        deal.click_create_button()
+
+        assert deal.first_name_error().text == '"firstName" is required'
+
     def test_chat_is_top_up(self, browser, authorization):
         deal = DealPage(browser)
         browser.refresh()
@@ -56,4 +81,3 @@ class TestLogin:
         f_as = deal.get_deals_name()
         time.sleep(5)
         assert f_as[0].text == s_name, f'{f_as[0].text} is not equal {s_name}'
-
