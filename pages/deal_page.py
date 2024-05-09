@@ -1,5 +1,7 @@
-from datas.locators import deal_list_l, open_customer_l, add_new_customer_l, create_button_l, first_name_l, last_name_l, email_l, \
-    phone_l, chat_field, send_message
+from datas.locators import deal_list_l, open_customer_l, add_new_customer_l, create_button_l, first_name_l, last_name_l, \
+    email_l, \
+    phone_l, chat_field, send_message, first_name_field_error, search_customer_field, customer_name_in_customer_list, \
+    deal_notification
 from pages.base_page import BasePage
 from pages.tools import Tools
 
@@ -40,3 +42,15 @@ class DealPage(BasePage):
 
     def click_send_message_in_chat(self):
         self.elements.click(send_message)
+
+    def first_name_error(self):
+        return self.elements.get_item(first_name_field_error)
+
+    def input_customer_date_in_search_field(self, text):
+        self.elements.input(search_customer_field, text=text)
+
+    def get_customer_name_in_customer_list(self):
+        return self.elements.get_items_list(customer_name_in_customer_list)
+
+    def get_deal_notification(self):
+        return self.elements.get_item(deal_notification)
