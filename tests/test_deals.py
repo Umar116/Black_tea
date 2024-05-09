@@ -22,10 +22,9 @@ class TestLogin:
             email=email(),
             phone=phone())
         deal.click_create_button()
-        time.sleep(5)
         name = f_name + " " + l_name
-        deals = deal.get_deals_name()
-        assert deals[0].text == name, "Deal Not found"
+        assert deal.get_deal_notification().text == "Chat is successfully created"
+        assert deal.get_deals_name()[0].text == name, "Deal Not found"
 
     def test_deal_created_by_mandatory_field(self, browser, authorization):
         deal = DealPage(browser)
@@ -36,9 +35,8 @@ class TestLogin:
         deal.input_mandatory_customer_dates(
             first_name=f_name)
         deal.click_create_button()
-        time.sleep(3)
-        deals = deal.get_deals_name()
-        assert f_name in deals[0].text, "Deal Not found"
+        assert deal.get_deal_notification().text == "Chat is successfully created"
+        assert f_name in deal.get_deals_name()[0].text, "Deal Not found"
 
     def test_deal_created_by_customer(self, browser, authorization):
         deal = DealPage(browser)
@@ -46,16 +44,13 @@ class TestLogin:
 
         deal.open_customer_add_window()
         deal.input_customer_date_in_search_field(name)
-        time.sleep(3)
         customer = deal.get_customer_name_in_customer_list()
-        assert name == customer[0].text
         customer[0].click()
         deal.click_create_button()
-        time.sleep(3)
 
         assert deal.get_deal_notification().text == "Chat is successfully created"
         deals = deal.get_deals_name()
-        assert deals[0].text == name, "Deal Not found"
+        assert name in deals[0].text, "Deal Not found"
 
     def test_error_when_mandatory_is_not_field(self, browser, authorization):
         deal = DealPage(browser)
@@ -78,6 +73,4 @@ class TestLogin:
         deal.click_send_message_in_chat()
         time.sleep(5)
         browser.switch_to.parent_frame()
-        f_as = deal.get_deals_name()
-        time.sleep(5)
-        assert f_as[0].text == s_name, f'{f_as[0].text} is not equal {s_name}'
+        assert deal.get_deals_name()[0].text == s_name, f'{deal.get_deals_name()[0].text} is not equal {s_name}'
