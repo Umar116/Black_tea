@@ -26,3 +26,9 @@ class Tools(BasePage):
             EC.visibility_of_all_elements_located(*element)
         )
         return value
+
+    def get_item(self, *element):
+        value = self.wait.until(
+            EC.visibility_of_element_located(*element)
+        )
+        return value
