@@ -1,6 +1,6 @@
 import time
 
-from configure import base_login, base_password
+from configure import base_login, base_password, prod_login
 from datas.locators import login, password, sign_in
 from pages.base_page import BasePage
 from pages.tools import Tools
