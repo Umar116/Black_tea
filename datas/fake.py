@@ -17,3 +17,7 @@ def phone() -> str:
 
 def email() -> str:
     return fake.email()
+
+
+def job() -> str:
+    return fake.job()
