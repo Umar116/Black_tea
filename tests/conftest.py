@@ -10,6 +10,7 @@ def browser():
     print("\nstart browser for test..")
 
     options = webdriver.FirefoxOptions()
+    options.set_preference("intl.accept_languages", "en")
     options.page_load_strategy = 'normal'
     browser = webdriver.Firefox(options=options)
     yield browser
