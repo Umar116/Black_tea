@@ -1,6 +1,6 @@
 from selenium.webdriver.support.wait import WebDriverWait
 
-from configure import base_url
+from configure import base_url, prod_url
 
 
 class BasePage:
